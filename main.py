@@ -6,6 +6,13 @@ def create_empty_bitmap():
     return np.zeros(64, dtype='byte')
 
 
+def get_occupied_board_state(input_array):
+    result = create_empty_bitmap()
+    for i in range(0, len(input_array)):
+        result = np.bitwise_or(result, input_array[i])
+    return result
+
+
 class Board:
     def __init__(self):
         self.white_pawn_bitboard = create_empty_bitmap()
@@ -21,20 +28,18 @@ class Board:
         self.black_rook_bitboard = create_empty_bitmap()
         self.black_queen_bitboard = create_empty_bitmap()
         self.black_king_bitboard = create_empty_bitmap()
-        self.white_board_list = [self.white_pawn_bitboard,
-                                 self.white_knight_bitboard,
-                                 self.white_bishop_bitboard,
-                                 self.white_rook_bitboard,
-                                 self.white_queen_bitboard,
-                                 self.white_king_bitboard]
-        self.black_board_list = [self.black_pawn_bitboard,
-                                 self.black_knight_bitboard,
-                                 self.black_bishop_bitboard,
-                                 self.black_rook_bitboard,
-                                 self.black_queen_bitboard,
-                                 self.black_king_bitboard]
-        self.board_list = [self.white_board_list,
-                           self.black_board_list]
+        self.board_list = [self.white_pawn_bitboard,
+                           self.white_knight_bitboard,
+                           self.white_bishop_bitboard,
+                           self.white_rook_bitboard,
+                           self.white_queen_bitboard,
+                           self.white_king_bitboard,
+                           self.black_pawn_bitboard,
+                           self.black_knight_bitboard,
+                           self.black_bishop_bitboard,
+                           self.black_rook_bitboard,
+                           self.black_queen_bitboard,
+                           self.black_king_bitboard]
 
         self.init_pieces()
 
@@ -60,4 +65,6 @@ class Board:
         self.black_king_bitboard[60] = 1
 
 
-
+test = Board()
+test_if = get_occupied_board_state(test.board_list)
+print(test_if)
